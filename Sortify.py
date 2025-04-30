@@ -4,9 +4,9 @@ import requests
 import sys
 
 # ===== VERIFICAÇÃO DE LICENÇA =====
-def verificar_licenca(alvaz):
+def verificar_licenca(salomon):
     try:
-        url = f"https://licencas-api.onrender.com/verificar_licenca?cliente={alvaz}"
+        url = f"https://licencas-api.onrender.com/verificar_licenca?cliente={salomon}"
         resposta = requests.get(url, timeout=5)
         status = resposta.json().get("status")
 
@@ -18,7 +18,7 @@ def verificar_licenca(alvaz):
         sys.exit()
 
 # Defina o ID do cliente
-cliente_id = "alvaz"  # Alterar para cada cliente
+cliente_id = "salomon"  # Alterar para cada cliente
 verificar_licenca(cliente_id)
 
 # ===== ORGANIZAÇÃO DE ARQUIVOS =====
