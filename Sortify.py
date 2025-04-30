@@ -2,6 +2,7 @@ import os
 import shutil
 import requests
 import sys
+from datetime import datetime
 
 # ===== VERIFICAÇÃO DE LICENÇA =====
 def verificar_licenca(salomon):
@@ -22,20 +23,22 @@ cliente_id = "salomon"  # Alterar para cada cliente
 verificar_licenca(cliente_id)
 
 # ===== ORGANIZAÇÃO DE ARQUIVOS =====
-pasta_origem = "C:/Users/hickl/Downloads"
-pasta_destino = "C:/Users/hickl/Downloads/ORGANIZER"
+pasta_origem = "C:/Sortify/ORIGEM"
+pasta_destino = "C:/Sortify/DESTINO"
 
-# Tipos de arquivos
-tipos = ['pdf', 'jpg', 'docx', 'xlsx', 'outros']
-for tipo in tipos:
-    os.makedirs(os.path.join(pasta_destino, tipo), exist_ok=True)
-
-# Organiza os arquivos
+# Organiza os arquivos por ano e mês
 for arquivo in os.listdir(pasta_origem):
     caminho_arquivo = os.path.join(pasta_origem, arquivo)
     if os.path.isfile(caminho_arquivo):
-        extensao = arquivo.split('.')[-1].lower()
-        destino = os.path.join(pasta_destino, extensao if extensao in tipos else 'outros')
-        shutil.move(caminho_arquivo, os.path.join(destino, arquivo))
+        # Obter a data de modificação do arquivo (mês e ano)
+        data_modificacao = datetime.fromtimestamp(os.path.getmtime(caminho_arquivo))
+        ano_mes = data_modificacao.strftime("%Y-%m")  # Formato: "2025-04"
+        
+        # Criação da pasta de destino com o ano e mês
+        pasta_ano_mes = os.path.join(pasta_destino, ano_mes)
+        os.makedirs(pasta_ano_mes, exist_ok=True)
+        
+        # Mover o arquivo para a pasta correspondente
+        shutil.move(caminho_arquivo, os.path.join(pasta_ano_mes, arquivo))
 
 print("Organização concluída!")

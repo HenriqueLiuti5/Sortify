@@ -1,0 +1,25 @@
+COMANDO PARA CRIAR ARQUIVO EXECUTAVEL
+
+pyinstaller --onefile --icon=Sortify_icon.ico --name sortify Sortify.py
+
+
+
+COMANDO PARA GERAR INSTALADOR
+
+[Setup]
+AppName=Sortify
+AppVersion=1.0
+DefaultDirName={autopf}\Sortify
+DefaultGroupName=Sortify
+OutputDir=.\Output
+OutputBaseFilename=sortify_installer
+Compression=lzma
+SolidCompression=yes
+
+[Files]
+Source: "dist\Sortify.exe"; DestDir: "{app}"; Flags: ignoreversion
+
+[Icons]
+Name: "{group}\Sortify"; Filename: "{app}\sortify.exe"
+Name: "{commondesktop}\Sortify"; Filename: "{app}\sortify.exe"
+
